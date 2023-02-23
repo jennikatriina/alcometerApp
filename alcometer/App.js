@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Alert, Pressable, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button, RadioButton, Switch, TextInput } from 'react-native-paper';
+import { RadioButton, Switch, TextInput } from 'react-native-paper';
 import NumericInput from 'react-native-numeric-input';
 
 export default function App() {
@@ -23,19 +23,17 @@ export default function App() {
   const burning = weight / 10
   const gramsleft = grams - burning * time
 
-
   function showAlert() {
-    Alert.alert (
+    Alert.alert(
       "Warning alert",
       "Please insert weight",
-    [
-      {
-        text: "Ok"
-      }
-    ]
+      [
+        {
+          text: "Ok"
+        }
+      ]
     )
   }
-
 
   function calcResult() {
 
@@ -44,7 +42,7 @@ export default function App() {
     if (weight == 0 | weight == null) {
       showAlert();
       return;
-    } 
+    }
 
     if (gender === "Female") {
       result = gramsleft / (weight * 0.6);
@@ -65,6 +63,7 @@ export default function App() {
     }
 
     setResult(result);
+
   }
 
 
@@ -73,68 +72,71 @@ export default function App() {
       <ScrollView>
         <Switch
           value={changeTheme}
-          onValueChange={ () => setChangeTheme(!changeTheme) }
-          trackColor={{false:'#ffffff', true:'#000000'}}
+          onValueChange={() => setChangeTheme(!changeTheme)}
+          trackColor={{ false: '#ffffff', true: '#000000' }}
           style={theme.switch}
         />
+
         <Text style={theme.header}>Alcometer</Text>
-        <Text style= {theme.text}>Weight</Text>
+
+        <Text style={theme.text}>Weight</Text>
         <TextInput
-          style= {theme.input}
-          keyboardType= {'numeric'}
+          style={theme.input}
+          keyboardType={'numeric'}
           onChangeText={v => setWeight(v)}
         />
-        <Text style= {theme.text}>Bottles</Text>
 
         <View style={theme.numericInputView}>
+          <Text style={theme.text}>Bottles</Text>
           <NumericInput
-          onChange={v => setBottles(v)}
-          rounded
-          minValue={0}
-          style={theme.numericInput}
-          borderColor={color}
-          textColor={color} 
-          containerStyle={theme.numericInput}
+            onChange={v => setBottles(v)}
+            rounded
+            minValue={0}
+            style={theme.numericInput}
+            borderColor={color}
+            textColor={color}
+            containerStyle={theme.numericInput}
           />
-          <Text style= {theme.text}>Hours</Text>
+
+          <Text style={theme.text}>Hours</Text>
           <NumericInput
-          onChange={v => setTime(v)}
-          rounded
-          minValue={0}
-          style={theme.numericInput}
-          borderColor={color}
-          textColor={color}
-          containerStyle={theme.numericInput}
+            onChange={v => setTime(v)}
+            rounded
+            minValue={0}
+            style={theme.numericInput}
+            borderColor={color}
+            textColor={color}
+            containerStyle={theme.numericInput}
           />
         </View>
-        
+
         <RadioButton.Group onValueChange={v => setGender(v)} value={gender}  >
           <View style={theme.radioStyle}>
-            <RadioButton 
-              color= {color}
+            <RadioButton
+              color={color}
               value="Female" />
-            <Text style= {theme.text}>Female</Text>
+            <Text style={theme.text}>Female</Text>
           </View>
+
           <View style={theme.radioStyle}>
-            <RadioButton 
-              color= {color}
-              value="Male"/>
-            <Text style= {theme.text}>Male</Text>
+            <RadioButton
+              color={color}
+              value="Male" />
+            <Text style={theme.text}>Male</Text>
           </View>
         </RadioButton.Group>
 
         <Pressable
-          title="Calculate" 
-          onPress={calcResult} 
+          title="Calculate"
+          onPress={calcResult}
           style={theme.button}
         >
-          <Text style= {theme.buttonText}>
+          <Text style={theme.buttonText}>
             Calculate
           </Text>
         </Pressable>
         <Text
-          style= {[theme.resultText,
-        {color: resultColor}]}>
+          style={[theme.resultText, { color: resultColor }]}>
             {result.toFixed(2)}
         </Text>
         <StatusBar style="auto" />
@@ -197,7 +199,7 @@ const firstTheme = StyleSheet.create({
     height: 40,
     backgroundColor: "#ffffff"
   },
-  numericInput:{
+  numericInput: {
     backgroundColor: "#ffffff"
   },
   numericInputView: {
@@ -206,7 +208,6 @@ const firstTheme = StyleSheet.create({
   switch: {
     marginTop: 10,
   }
-
 })
 
 const secondTheme = StyleSheet.create({
@@ -262,7 +263,7 @@ const secondTheme = StyleSheet.create({
     height: 40,
     backgroundColor: "#ffffff"
   },
-  numericInput:{
+  numericInput: {
     marginBottom: 0,
     backgroundColor: "#696c7e"
   },
@@ -272,6 +273,4 @@ const secondTheme = StyleSheet.create({
   switch: {
     marginTop: 10,
   }
-
-
 });
